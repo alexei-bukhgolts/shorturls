@@ -3,10 +3,12 @@ from django.core.management.base import BaseCommand
 from url_shortener.models import RedirectEntry
 from datetime import datetime, timedelta
 
+from url_shortener.settings import ENTRY_DB_TTL_DAYS
+
 
 class Command(BaseCommand):
     help = 'Delete old redirect entries'
 
     def handle(self, *args, **options):
-        RedirectEntry.objects.filter(created__lte=datetime.now()-timedelta(days=10)).delete()
-        self.stdout.write('Deleted objects older than 10 days')
+        RedirectEntry.objects.filter(created__lte=datetime.now()-timedelta(days=ENTRY_DB_TTL_DAYS)).delete()
+        self.stdout.write(f'Deleted objects older than {ENTRY_DB_TTL_DAYS} days')
