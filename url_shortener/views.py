@@ -9,6 +9,7 @@ from url_shortener.serializers import RedirectEntrySerializer
 
 logger = logging.getLogger("RedirectLogger")
 
+
 class RedirectEntriesView(generics.mixins.CreateModelMixin, generics.mixins.ListModelMixin, generics.GenericAPIView):
     """API view which allows the user to GET their redirects and POST new redirect"""
     serializer_class = RedirectEntrySerializer
@@ -50,7 +51,7 @@ class CommitRedirectView(RedirectView):
             logger.warning(f'User tried to access non-existing subpart "{self.kwargs["subpart"]}"')
             return HttpResponseNotFound("404 NOT FOUND")
         logger.info(f'User redirected from {self.kwargs["subpart"]} to {url}')
-        return super(CommitRedirectView, self).get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
         # This calls get_redirect_url() again but it is cached so it should not matter too much
 
     def get_redirect_url(self, *args, **kwargs):
@@ -71,4 +72,3 @@ class CommitRedirectView(RedirectView):
             cache.set(subpart, target_url)
             logger.debug(f"URL found in db: {subpart} -> {target_url}")
         return target_url
-
