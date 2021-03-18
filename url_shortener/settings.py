@@ -85,6 +85,18 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "url_shortener",
+        "TIMEOUT": 1800
+    }
+}
+ENTRY_DB_TTL_DAYS = 0.1
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
