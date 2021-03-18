@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from django.views.static import serve
 
-from url_shortener.views import get_my_redirects
+from url_shortener.views import RedirectEntriesView, CommitRedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/my_redirects', RedirectEntriesView.as_view()),
+    path('<str:subpart>', CommitRedirectView.as_view())
 ]
 
 if settings.DEBUG:

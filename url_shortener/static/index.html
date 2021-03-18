@@ -8,17 +8,33 @@
 </head>
 
 <body>
-    <table class="table table-bordered" id="my_redirects_table" data-toggle="table" data-pagination="true" data-url="test.json">
+    <table class="table table-bordered" id="my_redirects_table" data-toggle="table" data-pagination="true" data-url="api/my_redirects" data-pagination-parts="['pageInfo', 'pageList']">
         <thead>
             <tr>
-                <th scope="col" data-field="full-url">Full URL</th>
-                <th scope="col" data-field="short-url">Short URL</th>
+                <th scope="col" data-field="longUrl">Full URL</th>
+                <th scope="col" data-field="shortUrl">Subpart in our domain</th>
             </tr>
         </thead>
 
     </table>
+
+    <form action="api/my_redirects" id="formPostRedirect" method="post">
+        <div class="mb-3">
+            <label for="inputShortUrl" class="form-label">Subpart in our domain</label>
+            <input type="text" class="form-control" id="inputShortUrl" name="shortUrl" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="inputLongUrl" class="form-label">Full URL</label>
+            <input type="text" name="longUrl" class="form-control" id="inputLongUrl">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div id="alerts"></div>
+    </form>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"  crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+    <script src="static/formscript.js"></script>
 </body>
 </html>
