@@ -30,5 +30,4 @@ if settings.DEBUG:
     #  We serve the main page of our app here. It should be done using nginx in production.
     urlpatterns += [
         path('', serve, {'document_root': settings.STATIC_ROOT, 'path': 'index.html'}),
-        path('test.json', serve, {'document_root': settings.STATIC_ROOT, 'path': 'test.json'}),
     ]
