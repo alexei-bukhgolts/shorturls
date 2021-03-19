@@ -82,13 +82,15 @@ DATABASES = {
         'NAME': 'url_shortener_db',
         'USER': 'root',
         'PASSWORD': '1',
+        'HOST': 'db',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://redis:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient"
         },

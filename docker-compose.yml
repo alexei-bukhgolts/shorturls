@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    build: ./
+    command: bash -c "sleep 5 &&  python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    volumes:
+      - .:/shorturls
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+      - redis
+  db:
+    image: mysql:8.0.1
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: 'url_shortener_db'
+      MYSQL_USER: 'urluser'
+      MYSQL_PASSWORD: '1'
+      MYSQL_ROOT_PASSWORD: '1'
+    restart: always
+    volumes:
+      - ./db_django1:/var/lib/mysql
+
+  redis:
+    image: redis
+    container_name: cache
+    ports:
+      - '6379:6379'
