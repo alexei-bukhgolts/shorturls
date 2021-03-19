@@ -1,6 +1,14 @@
 version: '3'
 
 services:
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - web
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   web:
     build: ./
     command: bash -c "sleep 5 &&  python manage.py makemigrations url_shortener && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
@@ -12,6 +20,10 @@ services:
     depends_on:
       - db
       - redis
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.purgecron.schedule: "@every 1000s"
+      ofelia.job-exec.purgecron.command: "python manage.py purge_old_data"
   db:
     image: mysql:8.0.1
     ports:
